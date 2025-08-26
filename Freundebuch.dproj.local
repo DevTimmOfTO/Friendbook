@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.932,=H:\Informatik\Delphi\Programme\Freundebuch\View.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.958,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Fa.pas=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\FavouriteMovieDlg.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.632,H:\Embarcadero\Studio\Projekte\Unit1.dfm=H:\Informatik\Delphi\Programme\Freundebuch\Main.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.316,=H:\Informatik\Delphi\Programme\Freundebuch\Entry.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.632,H:\Embarcadero\Studio\Projekte\Unit1.pas=H:\Informatik\Delphi\Programme\Freundebuch\Main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.346,=H:\Embarcadero\Studio\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.157,H:\Embarcadero\Studio\Projekte\Project1.dproj=H:\Informatik\Delphi\Programme\Freundebuch\Freundebuch.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.708,=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.967,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\ProfilSelection.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.254,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\ProfilSelection.pas=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.958,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Fa.dfm=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\FavouriteMovieDlg.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.252,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\OKCANCL2.dfm=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Fa.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.252,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\OKCANCL2.pas=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Fa.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.657,=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\OKCANCL2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.254,C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\ProfilSelection.dfm=C:\Users\TheBlokker\OneDrive\A26\Informatik\Delphi\Programme\Freundebuch.old\Unit2.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
