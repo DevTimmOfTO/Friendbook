@@ -48,6 +48,13 @@ object AddFriendFrame: TAddFriendFrame
       Height = 15
       Caption = 'Favorite Movie:'
     end
+    object Label6: TLabel
+      Left = 96
+      Top = 432
+      Width = 194
+      Height = 15
+      Caption = 'Poltische yy57x5     wwwsssWWW985'
+    end
     object EditFirstName: TEdit
       Left = 272
       Top = 56
@@ -91,7 +98,7 @@ object AddFriendFrame: TAddFriendFrame
       Left = 272
       Top = 238
       Width = 266
-      Height = 113
+      Height = 171
       Columns = <>
       PopupMenu = PopupMenuFavMov
       TabOrder = 5

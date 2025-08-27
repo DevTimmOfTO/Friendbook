@@ -364,50 +364,9 @@ begin
 end;
 
 procedure TFavoriteMovieDlg.ListView1SelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
-var
-  ImageIndex: Integer;
-  MovieObj: TJSONObject;
-  Title, PosterPath, PosterURL: string;
-  V: TJSONValue;
 begin
-  OKBtn.Enabled := Selected and (ListView1.Selected <> nil);
-
-  if not Selected then Exit;
-
-  MovieObj := FMovieData[Item.Index];
-
-  // Titel holen
-  if not MovieObj.TryGetValue<string>('title', Title) then
-    Title := 'Unknown Title';
-
-  // Poster laden (SmallImage)
-  V := MovieObj.Values['poster_path'];
-  if (V <> nil) and not (V is TJSONNull) then
-  begin
-    PosterPath := V.Value;
-    if PosterPath <> '' then
-      PosterURL := 'https://image.tmdb.org/t/p/w92' + PosterPath
-    else
-      PosterURL := '';
-  end
-  else
-    PosterURL := '';
-
-  ImageIndex := LoadPosterFromURL(PosterURL);
-
-  // Detail-Zeile erstellen (nur 1 Eintrag)
-  ListView1.Items.BeginUpdate;
-  try
-    ListView1.Items.Clear;
-    with ListView1.Items.Add do
-    begin
-      Caption := '';       // Poster-Spalte
-      SubItems.Add(Title); // Titel-Spalte
-      ImageIndex := ImageIndex;
-    end;
-  finally
-    ListView1.Items.EndUpdate;
-  end;
+  // Enable/Disable OK button based on selection
+  OKBtn.Enabled := Selected ;                  // Not needed and (ListView1.Selected <> nil)
 end;
 
 procedure TFavoriteMovieDlg.OKBtnClick(Sender: TObject);

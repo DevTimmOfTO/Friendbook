@@ -31,17 +31,20 @@ type
     AddEntry1: TMenuItem;
     AddEntry2: TMenuItem;
     ImageList1: TImageList;
+    Label6: TLabel;
     procedure Button2Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure AddEntry2Click(Sender: TObject);
-    procedure FrameCreate(Sender: TObject);
+    //procedure FrameCreate(Sender: TObject);
     procedure FrameDestroy(Sender: TObject);
+    constructor Create(AOwner: TComponent); override;
   private
     FMoviePosterImages: TImageList;
     FNetHttpClient: TNetHTTPClient;
     function LoadPosterFromURL(const PosterURL: string): Integer;
     procedure SetupMovieListView;
   public
+
     { Public declarations }
   end;
 
@@ -51,12 +54,13 @@ implementation
 
 uses FavouriteMovieDlg;
 
-procedure TAddFriendFrame.FrameCreate(Sender: TObject);
+constructor TAddFriendFrame.Create(AOwner: TComponent);
 begin
+  inherited Create(AOwner);
   // Create ImageList for movie posters
   FMoviePosterImages := TImageList.Create(Self);
-  FMoviePosterImages.Width := 64;   // Smaller for the entry list
-  FMoviePosterImages.Height := 96;  // Proportional
+  FMoviePosterImages.Width := 92;   // Smaller for the entry list
+  FMoviePosterImages.Height := 138;  // Proportional
   FMoviePosterImages.ColorDepth := cd32Bit;
 
   // Create HTTP client for poster loading
@@ -103,7 +107,7 @@ begin
   with ListView1.Columns.Add do
   begin
     Caption := 'Poster';
-    Width := 80;
+    Width := 92;
   end;
   with ListView1.Columns.Add do
   begin
