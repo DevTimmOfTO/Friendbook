@@ -3,52 +3,35 @@ object FavoriteMovieDlg: TFavoriteMovieDlg
   Top = 108
   BorderStyle = bsDialog
   Caption = 'Favorite Movie  '
-  ClientHeight = 193
-  ClientWidth = 384
+  ClientHeight = 370
+  ClientWidth = 609
   Color = clBtnFace
   ParentFont = True
   Position = poScreenCenter
+  OnCreate = FormCreate
   TextHeight = 15
   object Label1: TLabel
     Left = 32
     Top = 12
-    Width = 35
+    Width = 56
     Height = 15
-    Caption = 'Name:'
-  end
-  object Label2: TLabel
-    Left = 35
-    Top = 67
-    Width = 31
-    Height = 15
-    Caption = 'Gerne'
-  end
-  object Label3: TLabel
-    Left = 8
-    Top = 109
-    Width = 67
-    Height = 15
-    Caption = 'Why I like it: '
-  end
-  object Label4: TLabel
-    Left = 32
-    Top = 37
-    Width = 3
-    Height = 15
+    Caption = 'movie title'
   end
   object OKBtn: TButton
-    Left = 300
-    Top = 8
+    Left = 445
+    Top = 337
     Width = 75
     Height = 25
     Caption = 'Add'
     Default = True
+    Enabled = False
     ModalResult = 1
     TabOrder = 0
+    OnClick = OKBtnClick
   end
   object CancelBtn: TButton
-    Left = 300
-    Top = 38
+    Left = 526
+    Top = 337
     Width = 75
     Height = 25
     Cancel = True
@@ -57,37 +40,40 @@ object FavoriteMovieDlg: TFavoriteMovieDlg
     TabOrder = 1
   end
   object Edit1: TEdit
-    Left = 72
+    Left = 94
     Top = 8
-    Width = 121
+    Width = 195
     Height = 23
     TabOrder = 2
-    Text = 'Edit1'
   end
-  object ComboBoxEx1: TComboBoxEx
-    Left = 72
-    Top = 64
-    Width = 145
-    Height = 24
-    ItemsEx = <>
+  object Button1: TButton
+    Left = 301
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Search'
     TabOrder = 3
-    Text = 'ComboBoxEx1'
+    OnClick = Button1Click
   end
-  object Memo1: TMemo
-    Left = 72
-    Top = 109
-    Width = 136
-    Height = 62
-    Lines.Strings = (
-      'Memo1')
-    TabOrder = 4
-  end
-  object Edit2: TEdit
-    Left = 72
+  object ListView1: TListView
+    Left = 40
     Top = 37
-    Width = 121
-    Height = 23
-    TabOrder = 5
-    Text = 'Edit2'
+    Width = 561
+    Height = 276
+    Columns = <>
+    TabOrder = 4
+    OnData = ListView1Data
+    OnSelectItem = ListView1SelectItem
+  end
+  object NetHTTPClientFavMov: TNetHTTPClient
+    UserAgent = 'Embarcadero URI Client/1.0'
+    Left = 312
+    Top = 88
+  end
+  object ImageList1: TImageList
+    Height = 150
+    Width = 100
+    Left = 344
+    Top = 88
   end
 end
