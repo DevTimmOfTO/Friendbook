@@ -1,3 +1,5 @@
 /__history
 /Microsoft.WebView2.FixedVersionRuntime.139.0.3405.102.x86
 /Win32/Debug/WebView2Runtime
+*.fb
+test.json
