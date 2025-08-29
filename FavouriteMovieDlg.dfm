@@ -17,6 +17,13 @@ object FavoriteMovieDlg: TFavoriteMovieDlg
     Height = 15
     Caption = 'movie title'
   end
+  object Label2: TLabel
+    Left = 32
+    Top = 347
+    Width = 229
+    Height = 15
+    Caption = 'Enpowered by The Movie Database (TMDB)'
+  end
   object OKBtn: TButton
     Left = 445
     Top = 337
@@ -45,6 +52,7 @@ object FavoriteMovieDlg: TFavoriteMovieDlg
     Width = 195
     Height = 23
     TabOrder = 2
+    OnKeyDown = Edit1KeyDown
   end
   object Button1: TButton
     Left = 301
@@ -56,9 +64,9 @@ object FavoriteMovieDlg: TFavoriteMovieDlg
     OnClick = Button1Click
   end
   object ListView1: TListView
-    Left = 40
+    Left = 32
     Top = 37
-    Width = 561
+    Width = 569
     Height = 276
     Columns = <>
     TabOrder = 4

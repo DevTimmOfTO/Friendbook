@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, System.JSON, System.Math,
-  System.NetEncoding,
+  System.NetEncoding,  Winapi.Windows,
   System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent,
   Vcl.Forms, Vcl.Controls, Vcl.Graphics, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls,
   Vcl.ImgList, Vcl.Imaging.pngimage, Vcl.Imaging.jpeg, System.ImageList;
@@ -19,12 +19,14 @@ type
     NetHTTPClientFavMov: TNetHTTPClient;
     ListView1: TListView;
     ImageList1: TImageList;
+    Label2: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ListView1Data(Sender: TObject; Item: TListItem);
     procedure ListView1SelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure OKBtnClick(Sender: TObject);
+    procedure Edit1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FPosterImages: TImageList;
     FMovieData: TArray<TJSONObject>; // Store movie data for virtual ListView
@@ -109,6 +111,16 @@ begin
       FMovieData[I].Free;
   SetLength(FMovieData, 0);
   SetLength(FPosterCache, 0);  // Clear poster cache too
+end;
+
+procedure TFavoriteMovieDlg.Edit1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ if Key = VK_RETURN then
+  begin
+    Key := 0; // prevent "ding" sound
+    Button1Click(Self); // trigger your search
+  end;
 end;
 
 function TFavoriteMovieDlg.LoadPosterFromURL(const PosterURL: string): Integer;

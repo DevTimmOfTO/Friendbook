@@ -1,8 +1,8 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Friendbook'
-  ClientHeight = 629
+  Caption = 'friendship book'
+  ClientHeight = 648
   ClientWidth = 971
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,64 +17,44 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 153
-    Height = 629
+    Height = 648
     Align = alLeft
     TabOrder = 0
+    ExplicitHeight = 629
     object ButtonExport: TButton
       Left = 10
-      Top = 184
+      Top = 117
       Width = 137
       Height = 25
       Caption = 'Export page'
       TabOrder = 0
+      OnClick = ButtonExportClick
     end
     object ButtonLookFriendbook: TButton
-      Left = 8
+      Left = 10
       Top = 24
       Width = 137
       Height = 25
-      Caption = 'View friend book'
+      Caption = 'View friendship book'
       TabOrder = 1
-    end
-    object GroupBox1: TGroupBox
-      Left = 10
-      Top = 86
-      Width = 137
-      Height = 84
-      Caption = 'Edit'
-      TabOrder = 2
-      object ButtonEditOwnSite: TButton
-        Left = 3
-        Top = 16
-        Width = 131
-        Height = 25
-        Caption = 'Your own page'
-        TabOrder = 0
-      end
-      object ButtonEditFriendSite: TButton
-        Left = 3
-        Top = 47
-        Width = 131
-        Height = 25
-        Caption = 'A friend'#39's page'
-        TabOrder = 1
-      end
+      OnClick = ButtonLookFriendbookClick
     end
     object ButtonPrint: TButton
       Left = 10
-      Top = 215
+      Top = 148
       Width = 137
       Height = 25
       Caption = 'Print page'
-      TabOrder = 3
+      TabOrder = 2
+      OnClick = ButtonPrintClick
     end
     object ButtonAddAFriend: TButton
       Left = 10
       Top = 55
       Width = 137
       Height = 25
-      Caption = 'Add friend'
-      TabOrder = 4
+      Caption = 'Add friend to book'
+      TabOrder = 3
       OnClick = ButtonAddAFriendClick
     end
     object SearchBox1: TSearchBox
@@ -82,18 +62,30 @@ object Form1: TForm1
       Top = 263
       Width = 137
       Height = 23
+      TabOrder = 4
+      TextHint = 'Search for Names'
+      OnChange = SearchBox1Change
+      OnInvokeSearch = SearchBox1InvokeSearch
+    end
+    object ButtonEditFriendSite: TButton
+      Left = 10
+      Top = 86
+      Width = 137
+      Height = 25
+      Caption = 'Edit friendship book site'
       TabOrder = 5
-      TextHint = 'Search for ...'
+      OnClick = ButtonEditFriendSiteClick
     end
   end
   object Panel2: TPanel
     Left = 153
     Top = 0
     Width = 818
-    Height = 629
+    Height = 648
     Align = alClient
-    Caption = 'W'#228'hlen Sie links eine Option aus.'
+    Caption = 'Choose an option on the left'
     TabOrder = 1
+    ExplicitHeight = 629
   end
   object MainMenu1: TMainMenu
     Left = 8
@@ -101,10 +93,23 @@ object Form1: TForm1
     object Datei1: TMenuItem
       Caption = 'File'
       object Datei2: TMenuItem
-        Caption = 'New Profil'
+        Caption = 'New friendship book'
+        ShortCut = 16462
+        OnClick = DateiNeu1Click
       end
       object Profilladen1: TMenuItem
-        Caption = 'Load a Profil'
+        Caption = 'Load a friendship book'
+        ShortCut = 16463
+        OnClick = DateiOeffnen1Click
+      end
+      object SaveaProfil1: TMenuItem
+        Caption = 'Save a friendship book'
+        ShortCut = 16467
+        OnClick = DateiSpeichern1Click
+      end
+      object SpeichernunterdesBuches1: TMenuItem
+        Caption = 'Save as a friendship book'
+        OnClick = DateiSpeichernUnter1Click
       end
       object N1: TMenuItem
         Caption = '-'
@@ -120,19 +125,11 @@ object Form1: TForm1
         OnClick = Exit1Click
       end
     end
-    object Language1: TMenuItem
-      Caption = 'Language'
-      object GermanDeutsch1: TMenuItem
-        Caption = 'German | Deutsch'
-      end
-      object EnglishEnglisch1: TMenuItem
-        Caption = 'English | Englisch'
-      end
-    end
     object Extras1: TMenuItem
       Caption = 'Extras'
       object Pickrandompersonthefriendshipbook1: TMenuItem
         Caption = 'Pick random person the friendship book'
+        OnClick = Pickrandompersonthefriendshipbook1Click
       end
       object GivearandomTorontoFunFact1: TMenuItem
         Caption = 'Give a random fun-fact about...'
@@ -150,5 +147,13 @@ object Form1: TForm1
         Caption = 'About'
       end
     end
+  end
+  object PrintDialog1: TPrintDialog
+    Left = 40
+    Top = 408
+  end
+  object PrinterSetupDialog1: TPrinterSetupDialog
+    Left = 40
+    Top = 368
   end
 end
