@@ -7,7 +7,8 @@ uses
   View in 'View.pas' {FrameView: TFrame},
   FavouriteMovieDlg in 'FavouriteMovieDlg.pas' {FavoriteMovieDlg},
   FavouriteSeriesDlg in 'FavouriteSeriesDlg.pas' {FavouriteSeriesDlg},
-  PersonData in 'PersonData.pas';
+  PersonData in 'PersonData.pas',
+  ABOUT in 'ABOUT.pas' {AboutBox};
 
 {$R *.res}
 
@@ -17,6 +18,7 @@ begin
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TFavoriteMovieDlg, FavoriteMovieDlg);
   Application.CreateForm(TFavouriteSeriesDlg, FavoriteSeriesDlg);
+  Application.CreateForm(TAboutBox, AboutBox);
   Application.Run;
 end.
 

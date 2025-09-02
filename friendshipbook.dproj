@@ -157,6 +157,10 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="PersonData.pas"/>
+        <DCCReference Include="ABOUT.pas">
+            <Form>AboutBox</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -185,9 +189,13 @@
             <Deployment Version="4">
                 <DeployFile LocalName="Win32\Debug\Freundebuch.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="Win64\Debug\Freundebuch.exe" Configuration="Debug" Class="ProjectOutput"/>
-                <DeployFile LocalName="Win64\Debug\Freundebuch.rsm" Configuration="Debug" Class="DebugSymbols"/>
                 <DeployFile LocalName="Win64\Debug\friendshipbook.exe" Configuration="Debug" Class="ProjectOutput"/>
-                <DeployFile LocalName="Win64\Debug\friendshipbook.rsm" Configuration="Debug" Class="DebugSymbols"/>
+                <DeployFile LocalName="Win64\Release\friendshipbook.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>friendshipbook.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployClass Name="AdditionalDebugSymbols">
                     <Platform Name="iOSSimulator">
                         <Operation>1</Operation>

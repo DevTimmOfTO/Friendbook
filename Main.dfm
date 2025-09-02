@@ -133,9 +133,11 @@ object Form1: TForm1
         Caption = 'Give a random fun-fact about...'
         object imm1: TMenuItem
           Caption = '... Timm'
+          OnClick = GivARandomFunFactAboutTimmClicked
         end
         object Toronto1: TMenuItem
           Caption = '... Toronto'
+          OnClick = GivARandomFunFactAboutTorontoClicked
         end
       end
       object N3: TMenuItem
@@ -143,6 +145,7 @@ object Form1: TForm1
       end
       object About1: TMenuItem
         Caption = 'About'
+        OnClick = About1Click
       end
     end
   end

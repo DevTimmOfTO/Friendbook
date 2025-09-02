@@ -1,4 +1,4 @@
-unit Main;
+ï»¿unit Main;
 
 interface
 
@@ -52,7 +52,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 
-    // Datei-Menü Events
+    // Datei-MenÃ¼ Events
     procedure DateiNeu1Click(Sender: TObject);
     procedure DateiOeffnen1Click(Sender: TObject);
     procedure DateiSpeichern1Click(Sender: TObject);
@@ -73,6 +73,9 @@ type
     procedure ButtonEditFriendSiteClick(Sender: TObject);
     procedure ButtonExportClick(Sender: TObject);
     procedure ButtonPrintClick(Sender: TObject);
+    procedure GivARandomFunFactAboutTimmClicked(Sender: TObject);
+    procedure GivARandomFunFactAboutTorontoClicked(Sender: TObject);
+    procedure About1Click(Sender: TObject);
     
   private
     FCurrentViewIndex: Integer;
@@ -118,7 +121,7 @@ type
     procedure DrawTextBlock(Canvas: TCanvas; const Text: string; var Y: Integer;
       const Rect: TRect; FontStyle: TFontStyles = []; FontSize: Integer = 0);
     procedure ShowPrintPreview;
-        procedure PreviewPaintBoxPaint(Sender: TObject); // Neue Methode für Preview
+        procedure PreviewPaintBoxPaint(Sender: TObject); // Neue Methode fÃ¼r Preview
     procedure PrintAllPersons;
   public
     property FileModified: Boolean read FFileModified write SetFileModified;
@@ -129,6 +132,8 @@ var
 implementation
 
 {$R *.dfm}
+
+uses ABOUT;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -352,7 +357,7 @@ begin
       FFileModified := False;
       AddRecentFile(FileName);
 
-      // UI zurücksetzen
+      // UI zurÃ¼cksetzen
       ClearCurrentFrame;
       SetLength(FFilteredIndices, 0);
       FCurrentViewIndex := 0;
@@ -373,7 +378,7 @@ begin
 end;
 
 // =========================
-// RECENT FILES FUNKTIONALITÄT
+// RECENT FILES FUNKTIONALITÃ„T
 // =========================
 
 procedure TForm1.CreateRecentMenuItems;
@@ -430,20 +435,25 @@ begin
     Reg.RootKey := HKEY_CURRENT_USER;
     if Reg.OpenKey(REGISTRY_KEY, True) then
     begin
-      // Alte Einträge löschen
+      // Alte EintrÃ¤ge lÃ¶schen
       for I := 0 to MAX_RECENT_FILES - 1 do
       begin
         if Reg.ValueExists('RecentFile' + IntToStr(I)) then
           Reg.DeleteValue('RecentFile' + IntToStr(I));
       end;
 
-      // Neue Einträge speichern
+      // Neue EintrÃ¤ge speichern
       for I := 0 to Min(FRecentFiles.Count - 1, MAX_RECENT_FILES - 1) do
         Reg.WriteString('RecentFile' + IntToStr(I), FRecentFiles[I]);
     end;
   finally
     Reg.Free;
   end;
+end;
+
+procedure TForm1.About1Click(Sender: TObject);
+begin
+  AboutBox.Show;
 end;
 
 procedure TForm1.AddRecentFile(const FileName: string);
@@ -455,7 +465,7 @@ begin
   if Index >= 0 then
     FRecentFiles.Delete(Index);
 
-  // An erste Stelle einfügen
+  // An erste Stelle einfÃ¼gen
   FRecentFiles.Insert(0, FileName);
 
   // Auf Maximum begrenzen
@@ -550,6 +560,73 @@ end;
 function TForm1.GetDefaultFileName: string;
 begin
   Result := Format('friendship book_%s.fb', [FormatDateTime('yyyy-mm-dd', Now)]);
+end;
+
+procedure TForm1.GivARandomFunFactAboutTimmClicked(Sender: TObject);
+const
+  Facts: array[1..22] of string = (
+    'Timm is 19 and still in high school, but already codes like a college grad.',
+    'Timm loves Python, C#, Java, and front-end web dev.',
+    'Timm is currently building a super realistic GTA Roleplay server with crazy immersion.',
+    'Timm has a DIY project: a train driverâ€™s cab powered by a Raspberry Pi.',
+    'Timm dreams of building his own Zusi 3 route from scratch.',
+    'Timm finds joy in printing, filing, and keeping everything neatly organized.',
+    'Timm contributes to OpenStreetMap to make the world more accurate.',
+    'Timm enjoys watching Papaplatte (german twitch streamer), especially Crexpy & Basti-Kevin nights.',
+    'Timm is politically left-leaning, supporting climate action and equality.',
+    'Timm has a favorite character: Amy Santiago from Brooklyn Nine-Nine (order queen).',
+    'Timm loves the tv-shows Brooklyn Nine-Nine, Monk, Psych, The Nanny, Die Anstalt, and Tagesschau.',
+    'Timm enjoys films like Turning Red, Elemental, Inside Out, Ratatouille, Brave, and ....',
+    'Timm has a fascination for realism in games, from physics to health systems.',
+    'Timm spent time in Canada and now wants to speak Canadian English. He â™¥ï¸Canada.',
+    'Timm sometimes struggles with languages, but sets ambitious goals: English C1, French B2.',
+    'Timm enjoys strategic and simulation games like Lotus Simulator, Civilization 6, Transport Fever 2, Zusi 3, and Victoria 3.',
+    'Timm balances minimalism with big creative chaos.',
+    'Timm is passionate about transport â€” buses, trams, and trains everywhere.',
+    'Timm weighs 128 kg and is on a journey to hit 80 kg.',
+    'Timm prefers both physical and digital filing systems for ultimate order.',
+    'Timm is inspired by Turning Red because it gave him a sense of independence and critique.',
+    'Timm likes mixing tech and creativity, whether itâ€™s code, maps, or roleplay systems.'
+  );
+var
+  i: Integer;
+begin
+  Randomize; // ensures better randomness
+  i := Random(Length(Facts)) + 1; // pick between 1 and 22
+  ShowMessage('ðŸŽ² Fun Fact: ' + sLineBreak + Facts[i]);
+end;
+
+procedure TForm1.GivARandomFunFactAboutTorontoClicked(Sender: TObject);
+const
+  Facts: array[1..21] of string = (
+    'Toronto is the largest city in Canada with over 2.9 million people.',
+    'Toronto has the third-largest public transit system in North America.',
+    'The CN Tower was once the tallest free-standing structure in the world.',
+    'Toronto is one of the most multicultural cities, with over 180 languages spoken.',
+    'More than half of Torontoâ€™s residents were born outside of Canada.',
+    'Toronto is nicknamed â€œThe Six,â€ popularized by Drake.',
+    'Torontoâ€™s PATH system is the largest underground shopping complex in the world.',
+    'Torontoâ€™s Yonge Street was once considered the longest street in the world.',
+    'Toronto hosts the Toronto International Film Festival (TIFF), one of the biggest globally.',
+    'Toronto has five major sports teams, including the Raptors and Maple Leafs.',
+    'Lake Ontario borders Toronto, making the waterfront a huge part of the city.',
+    'Toronto Island Park is the largest urban car-free community in North America.',
+    'The Toronto Zoo is one of the largest zoos in the world.',
+    'Toronto Pearson International Airport is Canadaâ€™s busiest airport.',
+    'Toronto has more than 1,500 parks and green spaces.',
+    'The cityâ€™s streetcar system is the largest in the Americas.',
+    'Torontoâ€™s Distillery District is a historic area full of art galleries and cafÃ©s.',
+    'Winter in Toronto can reach -20Â°C, while summers get hot and humid.',
+    'Toronto has over 8,000 restaurants covering almost every cuisine.',
+    'Torontoâ€™s skyline is constantly growing with new skyscrapers.',
+    'Most of the 1984 movie Police Academy was filmed in Toronto, including the â€œacademyâ€ at Humber College (formerly Lakeshore Psychiatric Hospital).'
+  );
+var
+  i: Integer;
+begin
+  Randomize;
+  i := Random(Length(Facts)) + 1;
+  ShowMessage('ðŸ Toronto Fun Fact: ' + sLineBreak + Facts[i]);
 end;
 
 function TForm1.IsValidFile(const FileName: string): Boolean;
@@ -756,7 +833,7 @@ var
   ViewFrame: TFrameView;
   ActualIndex: Integer;
 begin
-  // Bestimme den tatsächlichen Index
+  // Bestimme den tatsÃ¤chlichen Index
   if Length(FFilteredIndices) > 0 then
   begin
     if (Index < 0) or (Index >= Length(FFilteredIndices)) then
@@ -830,7 +907,7 @@ begin
   ShowPersonView(FCurrentViewIndex);
 end;
 
-// Such-Funktionalität
+// Such-FunktionalitÃ¤t
 procedure TForm1.PerformSearch(const SearchText: string);
 var
   I: Integer;
@@ -896,7 +973,7 @@ begin
   PerformSearch(SearchBox1.Text);
 end;
 
-// Zusätzliche Features
+// ZusÃ¤tzliche Features
 procedure TForm1.ShowRandomPerson;
 var
   RandomIndex: Integer;
@@ -928,7 +1005,7 @@ begin
     Exit;
   end;
 
-  // Hier würdest du einen Dialog öffnen, um eine Person auszuwählen und zu bearbeiten
+  // Hier wÃ¼rdest du einen Dialog Ã¶ffnen, um eine Person auszuwÃ¤hlen und zu bearbeiten
   ShowEditDialog;
 
 end;
@@ -959,7 +1036,7 @@ begin
   if PersonList.Count = 0 then
     Exit;
 
-  // Bestimme aktuellen Index (berücksichtige Filter)
+  // Bestimme aktuellen Index (berÃ¼cksichtige Filter)
   if Length(FFilteredIndices) > 0 then
   begin
     if (FCurrentViewIndex >= 0) and (FCurrentViewIndex < Length(FFilteredIndices)) then
@@ -989,7 +1066,7 @@ begin
     Printer.Title := 'Freundschaftsbuch - ' + Person.GetFullName;
     Printer.BeginDoc;
     try
-      // Seitenränder definieren (ca. 2cm Rand)
+      // SeitenrÃ¤nder definieren (ca. 2cm Rand)
       PageRect.Left := GetDeviceCaps(Printer.Handle, LOGPIXELSX) * 2 div 2; // 2cm
       PageRect.Top := GetDeviceCaps(Printer.Handle, LOGPIXELSY) * 2 div 2;
       PageRect.Right := Printer.PageWidth - PageRect.Left;
@@ -1002,7 +1079,7 @@ begin
       Printer.EndDoc;
     end;
 
-    ShowMessage(Format('Seite für "%s" wurde erfolgreich gedruckt!',
+    ShowMessage(Format('Seite fÃ¼r "%s" wurde erfolgreich gedruckt!',
                       [Person.GetFullName]));
 
   except
@@ -1050,7 +1127,7 @@ begin
   // === PERSON INFO ===
   ContentRect := Rect(PageRect.Left + 20, Y, PageRect.Right - 20, PageRect.Bottom);
 
-  // Name (groß und fett)
+  // Name (groÃŸ und fett)
   DrawTextBlock(Canvas, Person.GetFullName, Y, ContentRect, [fsBold], 14);
   Y := Y + LineHeight * 2;
 
@@ -1101,11 +1178,11 @@ begin
 
     // Beschreibungstext mit Zeilenumbruch
     DrawTextBlock(Canvas, Person.SomethingElse, Y, ContentRect);
-    // Y wird in DrawTextBlock automatisch erhöht
+    // Y wird in DrawTextBlock automatisch erhÃ¶ht
     Y := Y + LineHeight; // Extra Abstand nach Beschreibung
   end;
 
-  // === PERSÖNLICHE INFORMATIONEN TABELLE ===
+  // === PERSÃ–NLICHE INFORMATIONEN TABELLE ===
   Y := Y + LineHeight; // Abstand
   Canvas.Pen.Width := 1;
   Canvas.MoveTo(ContentRect.Left, Y);
@@ -1115,7 +1192,7 @@ begin
   DrawTextBlock(Canvas, 'PERSONAL INFORMATION', Y, ContentRect, [fsBold], 12);
   Y := Y + LineHeight * 2;
 
-  // Tabellen-Layout für persönliche Infos
+  // Tabellen-Layout fÃ¼r persÃ¶nliche Infos
   var ColWidth := (ContentRect.Right - ContentRect.Left) div 2;
   var Col1X := ContentRect.Left;
   var Col2X := ContentRect.Left + ColWidth + 10;
@@ -1168,7 +1245,7 @@ begin
     DrawTextBlock(Canvas, 'Not provided', Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight), [fsItalic]);
   Y := Y + LineHeight;
 
-  // Ehrenamtliche Tätigkeiten
+  // Ehrenamtliche TÃ¤tigkeiten
   DrawTextBlock(Canvas, 'Volunteer activities:', Y, TRect.Create(Col1X, Y, Col1X + ColWidth, Y + LineHeight), [fsBold]);
   if Trim(Person.VolunteerActivities) <> '' then
     DrawTextBlock(Canvas, Person.VolunteerActivities, Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight))
@@ -1193,8 +1270,8 @@ begin
   //DrawTextBlock(Canvas, 'KONTAKTINFORMATIONEN', Y, ContentRect, [fsBold], 12);
   //Y := Y + LineHeight;
 
-  // Hier könntest du weitere Felder hinzufügen, falls vorhanden:
-  // Beispiel für weitere Eigenschaften der Person-Klasse:
+  // Hier kÃ¶nntest du weitere Felder hinzufÃ¼gen, falls vorhanden:
+  // Beispiel fÃ¼r weitere Eigenschaften der Person-Klasse:
   // if Trim(Person.Email) <> '' then
   // begin
   //   DrawTextBlock(Canvas, 'E-Mail: ' + Person.Email, Y, ContentRect);
@@ -1235,7 +1312,7 @@ begin
   if Trim(Text) = '' then
     Exit;
 
-  // Font-Einstellungen temporär ändern und Original merken
+  // Font-Einstellungen temporÃ¤r Ã¤ndern und Original merken
   OriginalSize := Canvas.Font.Size;
   OriginalStyle := Canvas.Font.Style;
   Canvas.Font.Style := FontStyle;
@@ -1245,10 +1322,10 @@ begin
   LineHeight := Canvas.TextHeight('Ag') + 2;
   MaxWidth := Rect.Right - Rect.Left;
 
-  // Text in Zeilen aufteilen für Umbruch
+  // Text in Zeilen aufteilen fÃ¼r Umbruch
   Lines := TStringList.Create;
   try
-    // Zeilenumbrüche normalisieren
+    // ZeilenumbrÃ¼che normalisieren
     LineText := StringReplace(Text, #13#10, #10, [rfReplaceAll]);
     LineText := StringReplace(LineText, #13, #10, [rfReplaceAll]);
     Lines.Text := LineText;
@@ -1270,7 +1347,7 @@ begin
 
         // Falls kein Leerzeichen gefunden, bei Maximalbreite umbrechen
         if BreakPos = 0 then
-          BreakPos := MaxWidth div Canvas.TextWidth('M'); // Grobe Schätzung
+          BreakPos := MaxWidth div Canvas.TextWidth('M'); // Grobe SchÃ¤tzung
 
         // Versuche bei Leerzeichen zu trennen
         var SpacePos := BreakPos;
@@ -1300,7 +1377,7 @@ begin
     end;
   finally
     Lines.Free;
-    // Font zurücksetzen
+    // Font zurÃ¼cksetzen
     Canvas.Font.Size := OriginalSize;
     Canvas.Font.Style := OriginalStyle;
   end;
@@ -1344,7 +1421,7 @@ begin
     PreviewForm.Position := poMainFormCenter;
     PreviewForm.Color := clBtnFace;
 
-    // ScrollBox für große Seiten
+    // ScrollBox fÃ¼r groÃŸe Seiten
     ScrollBox := TScrollBox.Create(PreviewForm);
     ScrollBox.Parent := PreviewForm;
     ScrollBox.Left := 10;
@@ -1354,13 +1431,13 @@ begin
     ScrollBox.Color := clGray;
     ScrollBox.Anchors := [akLeft, akTop, akRight, akBottom];
 
-    // PaintBox für die Darstellung
+    // PaintBox fÃ¼r die Darstellung
     PaintBox := TPaintBox.Create(ScrollBox);
     PaintBox.Parent := ScrollBox;
     PaintBox.Left := 10;
     PaintBox.Top := 10;
-    PaintBox.Width := 580;  // A4-ähnlich
-    PaintBox.Height := 820; // A4-ähnlich
+    PaintBox.Width := 580;  // A4-Ã¤hnlich
+    PaintBox.Height := 820; // A4-Ã¤hnlich
     PaintBox.Color := clWhite;
     PaintBox.OnPaint := PreviewPaintBoxPaint;
 
@@ -1421,7 +1498,7 @@ begin
         Person := PersonList[I];
 
         if I > 0 then
-          Printer.NewPage; // Neue Seite für jede Person
+          Printer.NewPage; // Neue Seite fÃ¼r jede Person
 
         DrawPersonPage(Printer.Canvas, Person,
           Rect(GetDeviceCaps(Printer.Handle, LOGPIXELSX),
