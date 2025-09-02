@@ -20,7 +20,6 @@ object Form1: TForm1
     Height = 648
     Align = alLeft
     TabOrder = 0
-    ExplicitHeight = 629
     object ButtonExport: TButton
       Left = 10
       Top = 117
@@ -85,7 +84,6 @@ object Form1: TForm1
     Align = alClient
     Caption = 'Choose an option on the left'
     TabOrder = 1
-    ExplicitHeight = 629
   end
   object MainMenu1: TMainMenu
     Left = 8

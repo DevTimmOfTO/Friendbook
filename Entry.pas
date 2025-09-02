@@ -156,7 +156,7 @@ begin
   end;
 
   // Beschreibung
-  Memo5.Text := Person.Description;
+  Memo5.Text := Person.SomethingElse;
 
   // Adresse
   Edit1.Text := Person.Address1;
@@ -171,9 +171,9 @@ begin
   ComboBox2.Text := Person.Education;
 
   // Zusätzliche Infos
-  Memo2.Text := Person.ThoughtsAbout;
-  Memo3.Text := Person.Memories;
-  Memo4.Text := Person.Wishes;
+  Memo2.Text := Person.Hobbies;
+  Memo3.Text := Person.VolunteerActivities;
+  Memo4.Text := Person.FunFact;
 
   // Filme laden
   ListView1.Clear;
@@ -568,7 +568,7 @@ begin
         FEditingPerson.ProfilePicture.Destroy;
 
       // Update description
-      FEditingPerson.Description := Memo5.Text;
+      FEditingPerson.SomethingElse := Memo5.Text;
 
       // Update address fields
       FEditingPerson.Address1 := Edit1.Text;
@@ -583,9 +583,9 @@ begin
       FEditingPerson.Education := ComboBox2.Text;
 
       // Update additional info
-      FEditingPerson.ThoughtsAbout := Memo2.Text;
-      FEditingPerson.Memories := Memo3.Text;
-      FEditingPerson.Wishes := Memo4.Text;
+      FEditingPerson.Hobbies := Memo2.Text;
+      FEditingPerson.VolunteerActivities := Memo3.Text;
+      FEditingPerson.FunFact := Memo4.Text;
 
       // Clear and rebuild favorite movies
       FEditingPerson.FavoriteMovies.Clear;
@@ -655,7 +655,7 @@ begin
         NewPerson.ProfilePicture.Assign(Image1.Picture.Graphic);
 
       // Description
-      NewPerson.Description := Memo5.Text;
+      NewPerson.SomethingElse := Memo5.Text;
 
       // Address fields
       NewPerson.Address1 := Edit1.Text;
@@ -670,9 +670,9 @@ begin
       NewPerson.Education := ComboBox2.Text;
 
       // Additional info
-      NewPerson.ThoughtsAbout := Memo2.Text;
-      NewPerson.Memories := Memo3.Text;
-      NewPerson.Wishes := Memo4.Text;
+      NewPerson.Hobbies := Memo2.Text;
+      NewPerson.VolunteerActivities := Memo3.Text;
+      NewPerson.FunFact := Memo4.Text;
 
       // Copy favorite movies
       for I := 0 to ListView1.Items.Count - 1 do

@@ -542,7 +542,7 @@ begin
   Caption := Caption + ' - friendship book';
 
   if PersonList.Count > 0 then
-    Caption := Caption + Format(' (%d Personen)', [PersonList.Count]);
+    Caption := Caption + Format(' (%d people)', [PersonList.Count]);
 
   Self.Caption := Caption;
 end;
@@ -857,7 +857,7 @@ begin
       Person := PersonList[I];
       // Suche in verschiedenen Feldern
       if (Pos(SearchLower, LowerCase(Person.GetFullName)) > 0) or
-         (Pos(SearchLower, LowerCase(Person.Description)) > 0) or
+         (Pos(SearchLower, LowerCase(Person.SomethingElse)) > 0) or
          (Person.Nicknames.Text.ToLower.Contains(SearchLower)) then
       begin
         TempList.Add(I);
@@ -1020,6 +1020,7 @@ var
   HeaderRect, ContentRect: TRect;
   LineHeight: Integer;
   TempText: string;
+  AddressText: string;
 begin
   // Canvas-Einstellungen
   Canvas.Font.Name := 'Arial';
@@ -1033,78 +1034,177 @@ begin
   HeaderRect := Rect(PageRect.Left, Y, PageRect.Right, Y + LineHeight * 3);
 
   // Titel
-  DrawTextBlock(Canvas, 'FREUNDSCHAFTSBUCH', Y, HeaderRect, [fsBold], 16);
-  Y := Y+ LineHeight;
+  DrawTextBlock(Canvas, 'FRIENDSHIP BOOK', Y, HeaderRect, [fsBold], 16);
+  Y := Y + LineHeight;
 
   // Datum
-  DrawTextBlock(Canvas, 'Gedruckt am: ' + DateToStr(Now), Y, HeaderRect, [], 8);
-  Y := Y+ LineHeight * 2;
+  DrawTextBlock(Canvas, 'Printed at: ' + DateToStr(Now), Y, HeaderRect, [], 8);
+  Y := Y + LineHeight * 2;
 
   // Trennlinie
   Canvas.Pen.Width := 2;
   Canvas.MoveTo(PageRect.Left, Y);
   Canvas.LineTo(PageRect.Right, Y);
-  Y := Y+ LineHeight;
+  Y := Y + LineHeight;
 
   // === PERSON INFO ===
   ContentRect := Rect(PageRect.Left + 20, Y, PageRect.Right - 20, PageRect.Bottom);
 
   // Name (groß und fett)
   DrawTextBlock(Canvas, Person.GetFullName, Y, ContentRect, [fsBold], 14);
-  Y := Y+ LineHeight * 2;
+  Y := Y + LineHeight * 2;
 
   // Basis-Informationen
   if Person.GetAge > 0 then
   begin
-    DrawTextBlock(Canvas, 'Alter: ' + IntToStr(Person.GetAge), Y, ContentRect, [fsBold]);
-    Y := Y+ LineHeight;
+    DrawTextBlock(Canvas, 'Ages: ' + IntToStr(Person.GetAge), Y, ContentRect, [fsBold]);
+    Y := Y + LineHeight;
   end;
 
-  if Trim(Person.Address1) <> '' then
-  begin
-    DrawTextBlock(Canvas, 'Addresse: ' + Person.Address1 + Person.Address2 + Person.Address3 + Person.Address4 + Person.Address5, Y, ContentRect);
-   Y := Y+ LineHeight;
-  end;
+  // Adresse richtig zusammenbauen
+  AddressText := '';
+  if Trim(Person.Address1) <> '' then AddressText := AddressText + Person.Address1;
+  if Trim(Person.Address2) <> '' then AddressText := AddressText + ', ' + Person.Address2;
+  if Trim(Person.Address3) <> '' then AddressText := AddressText + ', ' + Person.Address3;
+  if Trim(Person.Address4) <> '' then AddressText := AddressText + ', ' + Person.Address4;
+  if Trim(Person.Address5) <> '' then AddressText := AddressText + ', ' + Person.Address5;
 
-  Y := Y+ LineHeight div 2; // Abstand
+  // Falls mit Komma beginnt, entfernen
+  if AddressText.StartsWith(', ') then
+    AddressText := Copy(AddressText, 3, Length(AddressText) - 2);
+
+  if Trim(AddressText) <> '' then
+    DrawTextBlock(Canvas, 'Address: ' + AddressText, Y, ContentRect)
+  else
+    DrawTextBlock(Canvas, 'Address: No address provided', Y, ContentRect, [fsItalic]);
+  Y := Y + LineHeight;
+
+  Y := Y + LineHeight div 2; // Abstand
 
   // Spitzname/Nicknames
   if Person.Nicknames.Count > 0 then
   begin
-    TempText := 'Spitzname: ';
+    TempText := 'Nicknames: ';
     if Person.Nicknames.Count = 1 then
       TempText := TempText + Person.Nicknames[0]
     else
       TempText := TempText + Person.Nicknames.CommaText;
     DrawTextBlock(Canvas, TempText, Y, ContentRect, [fsItalic]);
-    Y := Y+ LineHeight * 2;
+    Y := Y + LineHeight * 2;
   end;
 
   // === BESCHREIBUNG ===
-  if Trim(Person.Description) <> '' then
+  if Trim(Person.SomethingElse) <> '' then
   begin
-    DrawTextBlock(Canvas, 'Beschreibung:', Y, ContentRect, [fsBold]);
-   Y := Y+ LineHeight;
+    DrawTextBlock(Canvas, 'Something else:', Y, ContentRect, [fsBold]);
+    Y := Y + LineHeight;
 
     // Beschreibungstext mit Zeilenumbruch
-    DrawTextBlock(Canvas, Person.Description, Y, ContentRect);
-    Y := Y+ LineHeight * 3;
+    DrawTextBlock(Canvas, Person.SomethingElse, Y, ContentRect);
+    // Y wird in DrawTextBlock automatisch erhöht
+    Y := Y + LineHeight; // Extra Abstand nach Beschreibung
   end;
 
-  // === KONTAKT INFO ===
+  // === PERSÖNLICHE INFORMATIONEN TABELLE ===
+  Y := Y + LineHeight; // Abstand
   Canvas.Pen.Width := 1;
   Canvas.MoveTo(ContentRect.Left, Y);
   Canvas.LineTo(ContentRect.Right, Y);
-  Y := Y+ LineHeight;
+  Y := Y + LineHeight;
 
-  DrawTextBlock(Canvas, 'KONTAKTINFORMATIONEN', Y, ContentRect, [fsBold], 12);
-  Y := Y+ LineHeight;
+  DrawTextBlock(Canvas, 'PERSONAL INFORMATION', Y, ContentRect, [fsBold], 12);
+  Y := Y + LineHeight * 2;
+
+  // Tabellen-Layout für persönliche Infos
+  var ColWidth := (ContentRect.Right - ContentRect.Left) div 2;
+  var Col1X := ContentRect.Left;
+  var Col2X := ContentRect.Left + ColWidth + 10;
+
+  // Liebingsfilm(e)
+  DrawTextBlock(Canvas, 'Favorite movie(s):', Y, TRect.Create(Col1X, Y, Col1X + ColWidth, Y + LineHeight), [fsBold]);
+  if Person.FavoriteMovies.Count > 0 then
+  begin
+    TempText := '';
+    for var i := 0 to Min(Person.FavoriteMovies.Count - 1, 2) do // Max 3 Filme
+    begin
+      if i > 0 then TempText := TempText + ', ';
+      TempText := TempText + Person.FavoriteMovies[i].Title;
+      if Trim(Person.FavoriteMovies[i].Year) <> '' then
+        TempText := TempText + ' (' + Person.FavoriteMovies[i].Year + ')';
+    end;
+    if Person.FavoriteMovies.Count > 3 then
+      TempText := TempText + Format(' (+%d more)', [Person.FavoriteMovies.Count - 3]);
+    DrawTextBlock(Canvas, TempText, Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight));
+  end
+  else
+    DrawTextBlock(Canvas, 'Not provided', Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight), [fsItalic]);
+  Y := Y + LineHeight;
+
+  // Lieblingsserie(n)
+  DrawTextBlock(Canvas, 'Favorite tv-show(s):', Y, TRect.Create(Col1X, Y, Col1X + ColWidth, Y + LineHeight), [fsBold]);
+  if Person.FavoriteSeries.Count > 0 then
+  begin
+    TempText := '';
+    for var i := 0 to Min(Person.FavoriteSeries.Count - 1, 2) do // Max 3 Serien
+    begin
+      if i > 0 then TempText := TempText + ', ';
+      TempText := TempText + Person.FavoriteSeries[i].Title;
+      if Trim(Person.FavoriteSeries[i].Year) <> '' then
+        TempText := TempText + ' (' + Person.FavoriteSeries[i].Year + ')';
+    end;
+    if Person.FavoriteSeries.Count > 3 then
+      TempText := TempText + Format(' (+%d more)', [Person.FavoriteSeries.Count - 3]);
+    DrawTextBlock(Canvas, TempText, Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight));
+  end
+  else
+    DrawTextBlock(Canvas, 'Not provided', Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight), [fsItalic]);
+  Y := Y + LineHeight;
+
+  // Hobbys
+  DrawTextBlock(Canvas, 'Hobbies:', Y, TRect.Create(Col1X, Y, Col1X + ColWidth, Y + LineHeight), [fsBold]);
+  if Trim(Person.Hobbies) <> '' then
+    DrawTextBlock(Canvas, Person.Hobbies, Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight))
+  else
+    DrawTextBlock(Canvas, 'Not provided', Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight), [fsItalic]);
+  Y := Y + LineHeight;
+
+  // Ehrenamtliche Tätigkeiten
+  DrawTextBlock(Canvas, 'Volunteer activities:', Y, TRect.Create(Col1X, Y, Col1X + ColWidth, Y + LineHeight), [fsBold]);
+  if Trim(Person.VolunteerActivities) <> '' then
+    DrawTextBlock(Canvas, Person.VolunteerActivities, Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight))
+  else
+    DrawTextBlock(Canvas, 'Not provided', Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight), [fsItalic]);
+  Y := Y + LineHeight;
+
+  // Fun Fact
+  DrawTextBlock(Canvas, 'Fun Fact:', Y, TRect.Create(Col1X, Y, Col1X + ColWidth, Y + LineHeight), [fsBold]);
+  if Trim(Person.FunFact) <> '' then
+    DrawTextBlock(Canvas, Person.FunFact, Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight))
+  else
+    DrawTextBlock(Canvas, 'Not provided', Y, TRect.Create(Col2X, Y, ContentRect.Right, Y + LineHeight), [fsItalic]);
+
+  // === KONTAKT INFO ===
+  Y := Y + LineHeight; // Abstand vor Kontaktinfo
+  Canvas.Pen.Width := 1;
+  Canvas.MoveTo(ContentRect.Left, Y);
+  Canvas.LineTo(ContentRect.Right, Y);
+  Y := Y + LineHeight;
+
+  //DrawTextBlock(Canvas, 'KONTAKTINFORMATIONEN', Y, ContentRect, [fsBold], 12);
+  //Y := Y + LineHeight;
 
   // Hier könntest du weitere Felder hinzufügen, falls vorhanden:
+  // Beispiel für weitere Eigenschaften der Person-Klasse:
   // if Trim(Person.Email) <> '' then
   // begin
   //   DrawTextBlock(Canvas, 'E-Mail: ' + Person.Email, Y, ContentRect);
-  //   Y += LineHeight;
+  //   Y := Y + LineHeight;
+  // end;
+
+  // if Trim(Person.Phone) <> '' then
+  // begin
+  //   DrawTextBlock(Canvas, 'Telefon: ' + Person.Phone, Y, ContentRect);
+  //   Y := Y + LineHeight;
   // end;
 
   // === FOOTER ===
@@ -1112,70 +1212,99 @@ begin
   Canvas.Pen.Width := 1;
   Canvas.MoveTo(PageRect.Left, Y);
   Canvas.LineTo(PageRect.Right, Y);
-  Y := Y+ LineHeight div 2;
+  Y := Y + LineHeight div 2;
 
-  DrawTextBlock(Canvas, Format('Seite 1 - Erstellt mit Freundschaftsbuch v1.0 - %s',
+  DrawTextBlock(Canvas, Format('Page 1 - Created with Friendship Book v1.0 - %s',
                               [FormatDateTime('dd.mm.yyyy hh:nn', Now)]),
                 Y, PageRect, [], 8);
 end;
 
+// Verbesserte DrawTextBlock Methode
 procedure TForm1.DrawTextBlock(Canvas: TCanvas; const Text: string; var Y: Integer;
   const Rect: TRect; FontStyle: TFontStyles = []; FontSize: Integer = 0);
 var
   TextRect: TRect;
-  DrawText: string;
   Lines: TStringList;
   I: Integer;
   LineHeight: Integer;
   OriginalSize: Integer;
+  OriginalStyle: TFontStyles;
+  LineText: string;
+  MaxWidth: Integer;
 begin
   if Trim(Text) = '' then
     Exit;
 
-  // Font-Einstellungen temporär ändern
+  // Font-Einstellungen temporär ändern und Original merken
   OriginalSize := Canvas.Font.Size;
+  OriginalStyle := Canvas.Font.Style;
   Canvas.Font.Style := FontStyle;
   if FontSize > 0 then
     Canvas.Font.Size := FontSize;
 
   LineHeight := Canvas.TextHeight('Ag') + 2;
+  MaxWidth := Rect.Right - Rect.Left;
 
   // Text in Zeilen aufteilen für Umbruch
   Lines := TStringList.Create;
   try
-    DrawText := StringReplace(Text, #13#10, #10, [rfReplaceAll]);
-    DrawText := StringReplace(DrawText, #13, #10, [rfReplaceAll]);
-
-    Lines.Text := DrawText;
+    // Zeilenumbrüche normalisieren
+    LineText := StringReplace(Text, #13#10, #10, [rfReplaceAll]);
+    LineText := StringReplace(LineText, #13, #10, [rfReplaceAll]);
+    Lines.Text := LineText;
 
     for I := 0 to Lines.Count - 1 do
     begin
-      if Y + LineHeight > Rect.Bottom then
+      if Y + LineHeight > Rect.Bottom - LineHeight then // Etwas Platz zum Seitenrand lassen
         Break; // Seitenende erreicht
 
-      TextRect := Rect.Create(Rect.Left, Y, Rect.Right, Y + LineHeight);
+      LineText := Lines[I];
 
-      // Text ausgeben mit Umbruch wenn nötig
-      if Canvas.TextWidth(Lines[I]) > (Rect.Right - Rect.Left) then
+      // Lange Zeilen umbrechen
+      while (Canvas.TextWidth(LineText) > MaxWidth) and (Length(LineText) > 0) do
       begin
-        // Einfacher Umbruch - könnte erweitert werden
-        DrawText := Copy(Lines[I], 1, 80) + '...';
-        Canvas.TextRect(TextRect, TextRect.Left, TextRect.Top, DrawText);
-      end
-      else
-        Canvas.TextRect(TextRect, TextRect.Left, TextRect.Top, Lines[I]);
+        // Finde einen guten Umbruchpunkt (Leerzeichen)
+        var BreakPos := Length(LineText);
+        while (BreakPos > 0) and (Canvas.TextWidth(Copy(LineText, 1, BreakPos)) > MaxWidth) do
+          Dec(BreakPos);
 
-      Y := Y+ LineHeight;
+        // Falls kein Leerzeichen gefunden, bei Maximalbreite umbrechen
+        if BreakPos = 0 then
+          BreakPos := MaxWidth div Canvas.TextWidth('M'); // Grobe Schätzung
+
+        // Versuche bei Leerzeichen zu trennen
+        var SpacePos := BreakPos;
+        while (SpacePos > 0) and (LineText[SpacePos] <> ' ') do
+          Dec(SpacePos);
+
+        if SpacePos > BreakPos div 2 then // Wenn Leerzeichen nicht zu weit weg
+          BreakPos := SpacePos;
+
+        TextRect := TRect.Create(Rect.Left, Y, Rect.Right, Y + LineHeight);
+        Canvas.TextRect(TextRect, TextRect.Left, TextRect.Top, Copy(LineText, 1, BreakPos));
+        Y := Y + LineHeight;
+
+        LineText := Trim(Copy(LineText, BreakPos + 1, Length(LineText) - BreakPos));
+
+        if Y + LineHeight > Rect.Bottom - LineHeight then
+          Break;
+      end;
+
+      // Restlichen Text ausgeben
+      if (LineText <> '') and (Y + LineHeight <= Rect.Bottom - LineHeight) then
+      begin
+        TextRect := TRect.Create(Rect.Left, Y, Rect.Right, Y + LineHeight);
+        Canvas.TextRect(TextRect, TextRect.Left, TextRect.Top, LineText);
+        Y := Y + LineHeight;
+      end;
     end;
   finally
     Lines.Free;
     // Font zurücksetzen
     Canvas.Font.Size := OriginalSize;
-    Canvas.Font.Style := [];
+    Canvas.Font.Style := OriginalStyle;
   end;
-end;
-
-// === OPTIONAL: PRINT PREVIEW ===
+end;// === OPTIONAL: PRINT PREVIEW ===
 procedure TForm1.PreviewPaintBoxPaint(Sender: TObject);
 var
   PaintBox: TPaintBox;
@@ -1257,6 +1386,8 @@ begin
     if PreviewForm.ShowModal = mrOk then
       PrintPersonData(Person);
 
+    if PreviewForm.ShowModal = mrCancel then
+      Exit;
   finally
     PreviewForm.Free;
   end;

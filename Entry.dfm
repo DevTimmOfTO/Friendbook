@@ -11,6 +11,7 @@ object AddFriendFrame: TAddFriendFrame
     Width = 818
     Height = 629
     HorzScrollBar.Range = 794
+    VertScrollBar.Position = 875
     VertScrollBar.Range = 1500
     VertScrollBar.Smooth = True
     VertScrollBar.Style = ssFlat
@@ -20,21 +21,21 @@ object AddFriendFrame: TAddFriendFrame
     TabOrder = 0
     object Label18: TLabel
       Left = 36
-      Top = 1318
+      Top = 443
       Width = 83
       Height = 15
       Caption = 'something else:'
     end
     object MemoNicknames: TMemo
       Left = 200
-      Top = 114
+      Top = -761
       Width = 193
       Height = 89
       TabOrder = 0
     end
     object GroupBox1: TGroupBox
       Left = 432
-      Top = 24
+      Top = -851
       Width = 362
       Height = 415
       Caption = 'picture'
@@ -63,7 +64,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object GroupBox2: TGroupBox
       Left = 24
-      Top = 445
+      Top = -430
       Width = 770
       Height = 852
       Caption = 'interests'
@@ -144,7 +145,7 @@ object AddFriendFrame: TAddFriendFrame
       end
       object Memo2: TMemo
         Left = 104
-        Top = 541
+        Top = 549
         Width = 537
         Height = 89
         TabOrder = 4
@@ -166,7 +167,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object GroupBox3: TGroupBox
       Left = 24
-      Top = 298
+      Top = -577
       Width = 402
       Height = 141
       Caption = 'adress'
@@ -244,7 +245,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object GroupBox4: TGroupBox
       Left = 24
-      Top = 24
+      Top = -851
       Width = 402
       Height = 268
       Caption = 'personal information'
@@ -288,7 +289,7 @@ object AddFriendFrame: TAddFriendFrame
         Left = 16
         Top = 200
         Width = 117
-        Height = 26
+        Height = 15
         Caption = 'profession/job/career:'
       end
       object Label15: TLabel
@@ -414,7 +415,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object Button4: TButton
       Left = 24
-      Top = 1384
+      Top = 509
       Width = 770
       Height = 113
       Caption = #55357#56510' Save'
@@ -423,7 +424,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object Memo5: TMemo
       Left = 126
-      Top = 1315
+      Top = 440
       Width = 539
       Height = 63
       TabOrder = 6

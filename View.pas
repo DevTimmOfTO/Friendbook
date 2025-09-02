@@ -243,8 +243,8 @@ begin
   LabelNicknames.Caption := NicknamesText;
 
   // Description
-  if Person.Description <> '' then
-    LabelDescription.Caption := Person.Description
+  if Person.SomethingElse <> '' then
+    LabelDescription.Caption := Person.SomethingElse
   else
     LabelDescription.Caption := 'No description';
 
@@ -274,18 +274,18 @@ begin
   LabelPersonalInfo.Caption := Trim(PersonalInfoText);
 
   // Thoughts, memories, wishes
-if Person.ThoughtsAbout <> '' then
-  LabelThoughtsAbout.Caption := Person.ThoughtsAbout
+if Person.Hobbies <> '' then
+  LabelThoughtsAbout.Caption := Person.Hobbies
 else
   LabelThoughtsAbout.Caption := 'Keine Gedanken eingetragen';
 
-if Person.Memories <> '' then
-  LabelMemories.Caption := Person.Memories
+if Person.VolunteerActivities <> '' then
+  LabelMemories.Caption := Person.VolunteerActivities
 else
   LabelMemories.Caption := 'Keine Erinnerungen eingetragen';
 
-if Person.Wishes <> '' then
-  LabelWishes.Caption := Person.Wishes
+if Person.FunFact <> '' then
+  LabelWishes.Caption := Person.FunFact
 else
   LabelWishes.Caption := 'Keine Wünsche eingetragen';
 

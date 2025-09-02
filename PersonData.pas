@@ -56,7 +56,7 @@ type
     property ProfilePicture: TBitmap read FProfilePicture write FProfilePicture;
     property FavoriteMovies: TList<TMovieSeriesEntry> read FFavoriteMovies;
     property FavoriteSeries: TList<TMovieSeriesEntry> read FFavoriteSeries;
-    property Description: string read FDescription write FDescription;
+    property SomethingElse: string read FDescription write FDescription;
     property Address1: string read FAddress1 write FAddress1;
     property Address2: string read FAddress2 write FAddress2;
     property Address3: string read FAddress3 write FAddress3;
@@ -65,9 +65,9 @@ type
     property RelationshipStatus: string read FRelationshipStatus write FRelationshipStatus;
     property Profession: string read FProfession write FProfession;
     property Education: string read FEducation write FEducation;
-    property ThoughtsAbout: string read FThoughtsAbout write FThoughtsAbout;
-    property Memories: string read FMemories write FMemories;
-    property Wishes: string read FWishes write FWishes;
+    property Hobbies: string read FThoughtsAbout write FThoughtsAbout;
+    property VolunteerActivities: string read FMemories write FMemories;
+    property FunFact: string read FWishes write FWishes;
 
     // Existing methods
     function GetFullName: string;
