@@ -1,4 +1,13 @@
-﻿unit Main;
+﻿{*******************************************************************}
+{* This file is part of Friendshipbook.                            *}
+{*                                                                 *}
+{* Copyright (c) 2025 Timm Johannes Göring                         *}
+{* This software is licensed under the MIT License.                *}
+{* For the full license text, see the LICENSE file in the          *}
+{* project root directory.                                         *}
+{*******************************************************************}
+
+unit Main;
 
 interface
 
@@ -17,10 +26,8 @@ type
   TForm1 = class(TForm)
     ButtonAddAFriend: TButton;
     Panel1: TPanel;
-    ButtonExport: TButton;
     ButtonLookFriendbook: TButton;
     ButtonEditFriendSite: TButton;
-    ButtonPrint: TButton;
     Panel2: TPanel;
     SearchBox1: TSearchBox;
     MainMenu1: TMainMenu;
@@ -28,8 +35,6 @@ type
     DateiOeffnen1: TMenuItem;
     DateiSpeichern1: TMenuItem;
     DateiSpeichernUnter1: TMenuItem;
-    N1: TMenuItem;
-    RecentProjects1: TMenuItem;
     // Recent Files Sub-Menu Items (dynamisch erstellt)
     N2: TMenuItem;
     Exit1: TMenuItem;
@@ -76,6 +81,8 @@ type
     procedure GivARandomFunFactAboutTimmClicked(Sender: TObject);
     procedure GivARandomFunFactAboutTorontoClicked(Sender: TObject);
     procedure About1Click(Sender: TObject);
+    procedure GermanDeutsch1Click(Sender: TObject);
+    procedure EnglishEnglisch1Click(Sender: TObject);
     
   private
     FCurrentViewIndex: Integer;
@@ -133,7 +140,7 @@ implementation
 
 {$R *.dfm}
 
-uses ABOUT;
+uses ABOUT, LanguageConfigurator;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -153,6 +160,8 @@ begin
   // Initial state
   UpdateWindowCaption;
   UpdateNavigationControls;
+
+  Lang.CurrentLanguage := lnEnglish;
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -283,13 +292,13 @@ begin
     try
       PersonsArray := TJSONArray.Create;
       JSON.AddPair('persons', PersonsArray);
-      JSON.AddPair('version', '1.1');
+      JSON.AddPair('version', '1.2');
       JSON.AddPair('created', DateTimeToStr(Now));
       JSON.AddPair('application', 'friendship book');
 
       // Alle Personen serialisieren
       for I := 0 to PersonList.Count - 1 do
-        PersonsArray.AddElement(PersonList[I].ToJSON);
+        PersonsArray.AddElement(PersonList[I].ToJSON(FileName));
 
       // Als UTF-8 speichern
       JSONString := JSON.ToJSON;
@@ -348,7 +357,7 @@ begin
       // Personen laden
       for I := 0 to PersonsArray.Count - 1 do
       begin
-        Person := TPerson.CreateFromJSON(PersonsArray.Items[I] as TJSONObject);
+        Person := TPerson.CreateFromJSON(PersonsArray.Items[I] as TJSONObject, FileName);
         PersonList.Add(Person);
       end;
 
@@ -378,7 +387,7 @@ begin
 end;
 
 // =========================
-// RECENT FILES FUNKTIONALITÄT
+// RECENT FILES FUNKTIONALITÄT - not in use
 // =========================
 
 procedure TForm1.CreateRecentMenuItems;
@@ -391,7 +400,6 @@ begin
     FRecentMenuItems[I].OnClick := RecentFileClick;
     FRecentMenuItems[I].Tag := I;
     FRecentMenuItems[I].Visible := False;
-    RecentProjects1.Add(FRecentMenuItems[I]);
   end;
 end;
 
@@ -491,7 +499,6 @@ begin
       FRecentMenuItems[I].Visible := False;
   end;
 
-  RecentProjects1.Enabled := FRecentFiles.Count > 0;
 end;
 
 procedure TForm1.RecentFileClick(Sender: TObject);
@@ -756,7 +763,7 @@ begin
   ButtonViewPrevious := TButton.Create(Self);
   ButtonViewPrevious.Parent := Panel1;
   ButtonViewPrevious.Left := 10;
-  ButtonViewPrevious.Top := 300;
+  ButtonViewPrevious.Top := 575;
   ButtonViewPrevious.Width := 60;
   ButtonViewPrevious.Height := 25;
   ButtonViewPrevious.Caption := '< Back';
@@ -766,7 +773,7 @@ begin
   ButtonViewNext := TButton.Create(Self);
   ButtonViewNext.Parent := Panel1;
   ButtonViewNext.Left := 80;
-  ButtonViewNext.Top := 300;
+  ButtonViewNext.Top := 575;
   ButtonViewNext.Width := 60;
   ButtonViewNext.Height := 25;
   ButtonViewNext.Caption := 'Next >';
@@ -776,7 +783,7 @@ begin
   LabelNavigation := TLabel.Create(Self);
   LabelNavigation.Parent := Panel1;
   LabelNavigation.Left := 10;
-  LabelNavigation.Top := 335;
+  LabelNavigation.Top := 580;
   LabelNavigation.Width := 130;
   LabelNavigation.Height := 15;
   LabelNavigation.Caption := '';
@@ -1025,6 +1032,12 @@ begin
   finally
     SaveDialog.Free;
   end;
+end;
+
+procedure TForm1.GermanDeutsch1Click(Sender: TObject);
+begin
+  Lang.SetLanguage(lnGerman);
+  //UpdateUIStrings;
 end;
 
 function TForm1.GetCurrentPerson: TPerson;
@@ -1550,6 +1563,17 @@ begin
   if PrintDialog1.Execute then
     PrintPersonData(Person);
 end;
+
+procedure TForm1.EnglishEnglisch1Click(Sender: TObject);
+begin
+  Lang.SetLanguage(lnEnglish);
+  //UpdateUIStrings;
+end;
+
+{procedure TForm1.UpdateUIStrings;
+begin
+
+end;  }
 
 procedure TForm1.Exit1Click(Sender: TObject);
 begin

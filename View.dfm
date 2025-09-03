@@ -9,11 +9,15 @@ object FrameView: TFrameView
     Top = 0
     Width = 800
     Height = 600
+    HorzScrollBar.Range = 776
+    VertScrollBar.Position = 18
+    VertScrollBar.Range = 1500
     Align = alClient
+    AutoScroll = False
     TabOrder = 0
     object Panel1: TPanel
       Left = 0
-      Top = 0
+      Top = -18
       Width = 779
       Height = 200
       Align = alTop
@@ -85,7 +89,7 @@ object FrameView: TFrameView
     end
     object GroupBox2: TGroupBox
       Left = 16
-      Top = 220
+      Top = 202
       Width = 760
       Height = 80
       Caption = 'description'
@@ -101,9 +105,9 @@ object FrameView: TFrameView
     end
     object GroupBox3: TGroupBox
       Left = 16
-      Top = 320
+      Top = 302
       Width = 360
-      Height = 120
+      Height = 162
       Caption = 'adress'
       TabOrder = 2
       object LabelAddress: TLabel
@@ -117,15 +121,15 @@ object FrameView: TFrameView
     end
     object GroupBox6: TGroupBox
       Left = 400
-      Top = 320
+      Top = 302
       Width = 376
-      Height = 120
+      Height = 162
       Caption = 'personal information'
       TabOrder = 3
       object LabelPersonalInfo: TLabel
         Left = 8
         Top = 20
-        Width = 94
+        Width = 345
         Height = 15
         Caption = 'LabelPersonalInfo'
         WordWrap = True
@@ -133,33 +137,17 @@ object FrameView: TFrameView
     end
     object GroupBox4: TGroupBox
       Left = 16
-      Top = 460
+      Top = 482
       Width = 360
-      Height = 200
+      Height = 281
       Caption = 'favorite movie'
       TabOrder = 4
       object ListView1: TListView
-        Left = 8
-        Top = 20
-        Width = 344
-        Height = 172
-        Columns = <
-          item
-            Caption = 'Poster'
-            Width = 100
-          end
-          item
-            Caption = 'Titel'
-            Width = 150
-          end
-          item
-            Caption = 'Jahr'
-            Width = 60
-          end
-          item
-            Caption = 'Beschreibung'
-            Width = 120
-          end>
+        Left = 3
+        Top = 25
+        Width = 354
+        Height = 253
+        Columns = <>
         ReadOnly = True
         RowSelect = True
         TabOrder = 0
@@ -168,29 +156,17 @@ object FrameView: TFrameView
     end
     object GroupBox5: TGroupBox
       Left = 400
-      Top = 460
+      Top = 482
       Width = 376
-      Height = 200
+      Height = 281
       Caption = 'favorite tv-shows'
       TabOrder = 5
       object ListView2: TListView
-        Left = 13
-        Top = 20
-        Width = 360
-        Height = 172
-        Columns = <
-          item
-            Caption = 'Titel'
-            Width = 150
-          end
-          item
-            Caption = 'Jahr'
-            Width = 60
-          end
-          item
-            Caption = 'Beschreibung'
-            Width = 120
-          end>
+        Left = 3
+        Top = 25
+        Width = 370
+        Height = 253
+        Columns = <>
         ReadOnly = True
         RowSelect = True
         TabOrder = 0
@@ -199,50 +175,49 @@ object FrameView: TFrameView
     end
     object GroupBox7: TGroupBox
       Left = 16
-      Top = 680
+      Top = 778
       Width = 240
-      Height = 120
+      Height = 164
       Caption = 'hobbies'
       TabOrder = 6
-      object LabelThoughtsAbout: TLabel
-        Left = 8
-        Top = 20
-        Width = 112
-        Height = 15
-        Caption = 'LabelThoughtsAbout'
-        WordWrap = True
+      object MemoHobbies: TMemo
+        Left = 3
+        Top = 16
+        Width = 234
+        Height = 145
+        TabOrder = 0
       end
     end
     object GroupBox8: TGroupBox
       Left = 280
-      Top = 680
+      Top = 778
       Width = 240
-      Height = 120
+      Height = 164
       Caption = 'volunteer activities'
       TabOrder = 7
-      object LabelMemories: TLabel
+      object MemoVolunteerActivities: TMemo
         Left = 3
-        Top = 20
-        Width = 81
-        Height = 15
-        Caption = 'LabelMemories'
-        WordWrap = True
+        Top = 16
+        Width = 234
+        Height = 145
+        Lines.Strings = (
+          '')
+        TabOrder = 0
       end
     end
     object GroupBox9: TGroupBox
       Left = 544
-      Top = 677
+      Top = 778
       Width = 232
-      Height = 120
+      Height = 164
       Caption = 'fun fact'
       TabOrder = 8
-      object LabelWishes: TLabel
-        Left = 8
-        Top = 20
-        Width = 65
-        Height = 15
-        Caption = 'LabelWishes'
-        WordWrap = True
+      object MemoFunFact: TMemo
+        Left = 3
+        Top = 16
+        Width = 226
+        Height = 145
+        TabOrder = 0
       end
     end
   end

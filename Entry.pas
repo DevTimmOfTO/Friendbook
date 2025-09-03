@@ -1,3 +1,12 @@
+{*******************************************************************}
+{* This file is part of Friendshipbook.                            *}
+{*                                                                 *}
+{* Copyright (c) 2025 Timm Johannes Göring                         *}
+{* This software is licensed under the MIT License.                *}
+{* For the full license text, see the LICENSE file in the          *}
+{* project root directory.                                         *}
+{*******************************************************************}
+
 unit Entry;
 
 interface
@@ -38,7 +47,6 @@ type
     MenuItem2: TMenuItem;
     GroupBox2: TGroupBox;
     Label7: TLabel;
-    Memo1: TMemo;
     GroupBox3: TGroupBox;
     Label8: TLabel;
     Edit1: TEdit;
@@ -147,12 +155,17 @@ begin
   // Nicknames
   MemoNicknames.Text := Person.Nicknames.Text;
 
-  // Profilbild
-  if Assigned(Person.ProfilePicture) and not Person.ProfilePicture.Empty then
+  // Profilbild - KORRIGIERTE ÜBERPRÜFUNG
+  if Assigned(Person.ProfilePicture) and Assigned(Person.ProfilePicture.Graphic) and not Person.ProfilePicture.Graphic.Empty then
   begin
     Image1.Picture.Assign(Person.ProfilePicture);
     Image1.Stretch := True;
     Image1.Proportional := True;
+  end
+  else
+  begin
+    // Kein Bild vorhanden - Image leeren
+    Image1.Picture := nil;
   end;
 
   // Beschreibung
@@ -166,9 +179,9 @@ begin
   Edit5.Text := Person.Address5;
 
   // Beziehung & Beruf
-  ComboBox1.Text := Person.RelationshipStatus;
+  ComboBox1.Text := Person.ReligionsAfflication;
   Edit6.Text := Person.Profession;
-  ComboBox2.Text := Person.Education;
+  ComboBox2.Text := Person.MaritalStatus;
 
   // Zusätzliche Infos
   Memo2.Text := Person.Hobbies;
@@ -234,17 +247,16 @@ begin
   end;
 
   // Button Text ändern
-  Button4.Caption := 'Änderungen speichern';
+  Button4.Caption := 'Save changes';
 end;
-
 procedure TAddFriendFrame.SetEditMode(EditMode: Boolean);
 begin
   FEditMode := EditMode;
   if EditMode then
-    Button4.Caption := 'Änderungen speichern'
+    Button4.Caption := 'Save changes'
   else
   begin
-    Button4.Caption := 'Person speichern';
+    Button4.Caption := 'Save person';
     FEditingPerson := nil;
     FEditingPersonIndex := -1;
   end;
@@ -537,14 +549,14 @@ begin
   // Validation - check required fields
   if Trim(EditFirstName.Text) = '' then
   begin
-    ShowMessage('Bitte Vorname eingeben!');
+    ShowMessage('Please enter your first name!');
     EditFirstName.SetFocus;
     Exit;
   end;
 
   if Trim(EditSurname.Text) = '' then
   begin
-    ShowMessage('Bitte Nachname eingeben!');
+    ShowMessage('Please enter your surname!');
     EditSurname.SetFocus;
     Exit;
   end;
@@ -578,9 +590,9 @@ begin
       FEditingPerson.Address5 := Edit5.Text;
 
       // Update relationship & job info
-      FEditingPerson.RelationshipStatus := ComboBox1.Text;
+      FEditingPerson.ReligionsAfflication := ComboBox1.Text;
       FEditingPerson.Profession := Edit6.Text;
-      FEditingPerson.Education := ComboBox2.Text;
+      FEditingPerson.MaritalStatus := ComboBox2.Text;
 
       // Update additional info
       FEditingPerson.Hobbies := Memo2.Text;
@@ -623,7 +635,7 @@ begin
         end;
       end;
 
-      ShowMessage(Format('Person "%s" erfolgreich aktualisiert!',
+      ShowMessage(Format('Person “%s” successfully updated!',
         [FEditingPerson.GetFullName]));
 
       // Clear form and exit edit mode
@@ -633,7 +645,7 @@ begin
     except
       on E: Exception do
       begin
-        ShowMessage('Fehler beim Aktualisieren: ' + E.Message);
+        ShowMessage('Error when saving: ' + E.Message);
       end;
     end;
   end
@@ -665,9 +677,9 @@ begin
       NewPerson.Address5 := Edit5.Text;
 
       // Relationship & Job info
-      NewPerson.RelationshipStatus := ComboBox1.Text;
+      NewPerson.ReligionsAfflication := ComboBox1.Text;
       NewPerson.Profession := Edit6.Text;
-      NewPerson.Education := ComboBox2.Text;
+      NewPerson.MaritalStatus := ComboBox2.Text;
 
       // Additional info
       NewPerson.Hobbies := Memo2.Text;
@@ -711,7 +723,7 @@ begin
       // Add to global list
       PersonList.Add(NewPerson);
 
-      ShowMessage(Format('Person "%s" erfolgreich gespeichert! (Total: %d Personen)',
+      ShowMessage(Format('Person “%s” successfully saved! (Total: %d persons)',
         [NewPerson.GetFullName, PersonList.Count]));
 
       // Clear form for next entry
@@ -721,7 +733,7 @@ begin
       on E: Exception do
       begin
         NewPerson.Free;
-        ShowMessage('Fehler beim Speichern: ' + E.Message);
+        ShowMessage('Error when saving: ' + E.Message);
       end;
     end;
   end;
@@ -801,12 +813,12 @@ var
 begin
   OpenDlg := TOpenDialog.Create(Self);
   try
-    OpenDlg.Title := 'Profilbild auswählen';
-    OpenDlg.Filter := 'Bilddateien|*.bmp;*.jpg;*.jpeg;*.png;*.gif|' +
+    OpenDlg.Title := 'Select profile picture';
+    OpenDlg.Filter := 'Image files|*.bmp;*.jpg;*.jpeg;*.png;*.gif|' +
                      'JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|' +
                      'PNG (*.png)|*.png|' +
                      'Bitmap (*.bmp)|*.bmp|' +
-                     'Alle Dateien (*.*)|*.*';
+                     'All files (*.*)|*.*';
     OpenDlg.FilterIndex := 1;
     OpenDlg.Options := [ofPathMustExist, ofFileMustExist, ofEnableSizing];
 
@@ -821,12 +833,12 @@ begin
         Image1.Center := True;
 
         // Debug-Info (kann später entfernt werden)
-        ShowMessage('Bild erfolgreich geladen: ' + ExtractFileName(OpenDlg.FileName));
+        ShowMessage('Image loaded successfully: ' + ExtractFileName(OpenDlg.FileName));
 
       except
         on E: Exception do
         begin
-          ShowMessage('Fehler beim Laden des Bildes: ' + E.Message);
+          ShowMessage('Error loading the image: ' + E.Message);
         end;
       end;
     end;

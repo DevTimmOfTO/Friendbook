@@ -1,3 +1,13 @@
+{*******************************************************************}
+{* This file is part of Friendshipbook.                            *}
+{*                                                                 *}
+{* Copyright (c) 2025 Timm Johannes Göring                         *}
+{* This software is licensed under the MIT License.                *}
+{* For the full license text, see the LICENSE file in the          *}
+{* project root directory.                                         *}
+{*******************************************************************}
+
+
 unit View;
 
 interface
@@ -29,13 +39,13 @@ type
     GroupBox6: TGroupBox;
     LabelPersonalInfo: TLabel;
     GroupBox7: TGroupBox;
-    LabelThoughtsAbout: TLabel;
     GroupBox8: TGroupBox;
-    LabelMemories: TLabel;
     GroupBox9: TGroupBox;
-    LabelWishes: TLabel;
     ImageList1: TImageList;
     ImageList2: TImageList;
+    MemoHobbies: TMemo;
+    MemoVolunteerActivities: TMemo;
+    MemoFunFact: TMemo;
   private
     FMoviePosterImages: TImageList;
     FSeriesPosterImages: TImageList;
@@ -175,39 +185,65 @@ end;
 
 procedure TFrameView.SetupListViews;
 begin
-  // Movies ListView
+
   ListView1.ViewStyle := vsReport;
-  ListView1.SmallImages := FMoviePosterImages; // dynamische ImageList
+  ListView1.SmallImages := FMoviePosterImages;
   ListView1.RowSelect := True;
   ListView1.GridLines := True;
-  ListView1.ReadOnly := True;
+  ListView1.DoubleBuffered := True;
+
+  // Setup columns
   ListView1.Columns.Clear;
+  with ListView1.Columns.Add do
+  begin
+    Caption := 'Poster';
+    Width := 92;
+  end;
+  with ListView1.Columns.Add do
+  begin
+    Caption := 'Title';
+    Width := 150;
+  end;
+  with ListView1.Columns.Add do
+  begin
+    Caption := 'Year';
+    Width := 60;
+  end;
+  with ListView1.Columns.Add do
+  begin
+    Caption := 'Description';
+    Width := 200;
+  end;
 
-  with ListView1.Columns.Add do
-    Caption := 'Poster'; Width := 92;
-  with ListView1.Columns.Add do
-    Caption := 'Titel'; Width := 200;
-  with ListView1.Columns.Add do
-    Caption := 'Jahr'; Width := 60;
-  with ListView1.Columns.Add do
-    Caption := 'Beschreibung'; Width := 300;
 
-  // Series ListView
   ListView2.ViewStyle := vsReport;
-  ListView2.SmallImages := FSeriesPosterImages; // dynamische ImageList
+  ListView2.SmallImages := FSeriesPosterImages;
   ListView2.RowSelect := True;
   ListView2.GridLines := True;
-  ListView2.ReadOnly := True;
-  ListView2.Columns.Clear;
+  ListView2.DoubleBuffered := True;
 
+    // Setup columns
+  ListView2.Columns.Clear;
   with ListView2.Columns.Add do
-    Caption := 'Poster'; Width := 92;
+  begin
+    Caption := 'Poster';
+    Width := 92;
+  end;
   with ListView2.Columns.Add do
-    Caption := 'Titel'; Width := 200;
+  begin
+    Caption := 'Title';
+    Width := 150;
+  end;
   with ListView2.Columns.Add do
-    Caption := 'Jahr'; Width := 60;
+  begin
+    Caption := 'Year';
+    Width := 60;
+  end;
   with ListView2.Columns.Add do
-    Caption := 'Beschreibung'; Width := 300;
+  begin
+    Caption := 'Description';
+    Width := 200;
+  end;
 end;
 procedure TFrameView.LoadPersonData(Person: TPerson);
 var
@@ -224,7 +260,7 @@ begin
     LabelAge.Caption := 'Alter unbekannt';
 
   // Profile picture
-  if Assigned(Person.ProfilePicture) and not Person.ProfilePicture.Empty then
+  if Assigned(Person.ProfilePicture) and not Person.ProfilePicture.Graphic.Empty then
   begin
     Image1.Picture.Assign(Person.ProfilePicture);
     Image1.Stretch := True;
@@ -262,32 +298,32 @@ begin
 
   // Personal info
   PersonalInfoText := '';
-  if Person.RelationshipStatus <> '' then
-    PersonalInfoText := PersonalInfoText + 'religious affiliation: ' + Person.RelationshipStatus + #13#10;
+  if Person.ReligionsAfflication <> '' then
+    PersonalInfoText := PersonalInfoText + 'Religious affiliation: ' + Person.ReligionsAfflication + #13#10;
   if Person.Profession <> '' then
-    PersonalInfoText := PersonalInfoText + 'profession/job/career: ' + Person.Profession + #13#10;
-  if Person.Education <> '' then
-    PersonalInfoText := PersonalInfoText + 'Marital status: ' + Person.Education;
+    PersonalInfoText := PersonalInfoText + 'Profession/job/career: ' + Person.Profession + #13#10;
+  if Person.MaritalStatus <> '' then
+    PersonalInfoText := PersonalInfoText + 'Marital status: ' + Person.MaritalStatus;
 
   if Trim(PersonalInfoText) = '' then
     PersonalInfoText := 'Keine weiteren Informationen';
   LabelPersonalInfo.Caption := Trim(PersonalInfoText);
 
-  // Thoughts, memories, wishes
+  // Hobbies, VolunteerActivities, FunFact
 if Person.Hobbies <> '' then
-  LabelThoughtsAbout.Caption := Person.Hobbies
+  MemoHobbies.Text := Person.Hobbies
 else
-  LabelThoughtsAbout.Caption := 'Keine Gedanken eingetragen';
+  MemoHobbies.Text := 'Keine Hobbies eingetragen';
 
 if Person.VolunteerActivities <> '' then
-  LabelMemories.Caption := Person.VolunteerActivities
+  MemoVolunteerActivities.Text := Person.VolunteerActivities
 else
-  LabelMemories.Caption := 'Keine Erinnerungen eingetragen';
+  MemoVolunteerActivities.Text := 'Keine VolunteerActivities eingetragen';
 
 if Person.FunFact <> '' then
-  LabelWishes.Caption := Person.FunFact
+  MemoFunFact.Text := Person.FunFact
 else
-  LabelWishes.Caption := 'Keine Wünsche eingetragen';
+  MemoFunFact.Text := 'Keine FunFact eingetragen';
 
 
   // Load movies and series

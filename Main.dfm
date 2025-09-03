@@ -20,32 +20,14 @@ object Form1: TForm1
     Height = 648
     Align = alLeft
     TabOrder = 0
-    object ButtonExport: TButton
-      Left = 10
-      Top = 117
-      Width = 137
-      Height = 25
-      Caption = 'Export page'
-      TabOrder = 0
-      OnClick = ButtonExportClick
-    end
     object ButtonLookFriendbook: TButton
       Left = 10
       Top = 24
       Width = 137
       Height = 25
       Caption = 'View friendship book'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = ButtonLookFriendbookClick
-    end
-    object ButtonPrint: TButton
-      Left = 10
-      Top = 148
-      Width = 137
-      Height = 25
-      Caption = 'Print page'
-      TabOrder = 2
-      OnClick = ButtonPrintClick
     end
     object ButtonAddAFriend: TButton
       Left = 10
@@ -53,15 +35,15 @@ object Form1: TForm1
       Width = 137
       Height = 25
       Caption = 'Add friend to book'
-      TabOrder = 3
+      TabOrder = 1
       OnClick = ButtonAddAFriendClick
     end
     object SearchBox1: TSearchBox
       Left = 10
-      Top = 263
+      Top = 327
       Width = 137
       Height = 23
-      TabOrder = 4
+      TabOrder = 2
       TextHint = 'Search for Names'
       OnChange = SearchBox1Change
       OnInvokeSearch = SearchBox1InvokeSearch
@@ -72,7 +54,7 @@ object Form1: TForm1
       Width = 137
       Height = 25
       Caption = 'Edit friendship book site'
-      TabOrder = 5
+      TabOrder = 3
       OnClick = ButtonEditFriendSiteClick
     end
   end
@@ -108,12 +90,6 @@ object Form1: TForm1
       object SpeichernunterdesBuches1: TMenuItem
         Caption = 'Save as a friendship book'
         OnClick = DateiSpeichernUnter1Click
-      end
-      object N1: TMenuItem
-        Caption = '-'
-      end
-      object RecentProjects1: TMenuItem
-        Caption = 'Recent Projects'
       end
       object N2: TMenuItem
         Caption = '-'

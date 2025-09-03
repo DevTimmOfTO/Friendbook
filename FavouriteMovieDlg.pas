@@ -1,4 +1,13 @@
-﻿unit FavouriteMovieDlg;
+﻿{*******************************************************************}
+{* This file is part of Friendshipbook.                            *}
+{*                                                                 *}
+{* Copyright (c) 2025 Timm Johannes Göring                         *}
+{* This software is licensed under the MIT License.                *}
+{* For the full license text, see the LICENSE file in the          *}
+{* project root directory.                                         *}
+{*******************************************************************}
+
+unit FavouriteMovieDlg;
 
 interface
 

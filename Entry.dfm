@@ -19,6 +19,8 @@ object AddFriendFrame: TAddFriendFrame
     AutoScroll = False
     PopupMenu = PopupMenuFavMov
     TabOrder = 0
+    ExplicitLeft = 3
+    ExplicitTop = 3
     object Label18: TLabel
       Left = 36
       Top = 443
@@ -26,20 +28,13 @@ object AddFriendFrame: TAddFriendFrame
       Height = 15
       Caption = 'something else:'
     end
-    object MemoNicknames: TMemo
-      Left = 200
-      Top = -761
-      Width = 193
-      Height = 89
-      TabOrder = 0
-    end
     object GroupBox1: TGroupBox
       Left = 432
       Top = -851
       Width = 362
       Height = 415
       Caption = 'picture'
-      TabOrder = 1
+      TabOrder = 0
       object Image1: TImage
         Left = 16
         Top = 35
@@ -69,7 +64,7 @@ object AddFriendFrame: TAddFriendFrame
       Height = 852
       Caption = 'interests'
       Padding.Bottom = 10
-      TabOrder = 2
+      TabOrder = 1
       object Label5: TLabel
         Left = 12
         Top = 25
@@ -171,7 +166,7 @@ object AddFriendFrame: TAddFriendFrame
       Width = 402
       Height = 141
       Caption = 'adress'
-      TabOrder = 3
+      TabOrder = 2
       object Label8: TLabel
         Left = 12
         Top = 24
@@ -249,7 +244,7 @@ object AddFriendFrame: TAddFriendFrame
       Width = 402
       Height = 268
       Caption = 'personal information'
-      TabOrder = 4
+      TabOrder = 3
       object Label1: TLabel
         Left = 16
         Top = 27
@@ -315,26 +310,19 @@ object AddFriendFrame: TAddFriendFrame
         Height = 23
         TabOrder = 1
       end
-      object Memo1: TMemo
-        Left = 176
-        Top = 82
-        Width = 193
-        Height = 54
-        TabOrder = 2
-      end
       object EditFirstName: TEdit
         Left = 176
         Top = 24
         Width = 193
         Height = 23
-        TabOrder = 3
+        TabOrder = 2
       end
       object ComboBox1: TComboBox
         Left = 176
         Top = 171
         Width = 193
         Height = 23
-        TabOrder = 4
+        TabOrder = 3
         TextHint = 'Choose one'
         Items.Strings = (
           'Christianity - Catholicism'
@@ -395,14 +383,14 @@ object AddFriendFrame: TAddFriendFrame
         Top = 200
         Width = 193
         Height = 23
-        TabOrder = 5
+        TabOrder = 4
       end
       object ComboBox2: TComboBox
         Left = 176
         Top = 229
         Width = 193
         Height = 23
-        TabOrder = 6
+        TabOrder = 5
         TextHint = 'Choose one'
         Items.Strings = (
           'Single'
@@ -412,6 +400,13 @@ object AddFriendFrame: TAddFriendFrame
           'In a relationship'
           'Separated')
       end
+      object MemoNicknames: TMemo
+        Left = 176
+        Top = 82
+        Width = 193
+        Height = 54
+        TabOrder = 6
+      end
     end
     object Button4: TButton
       Left = 24
@@ -419,7 +414,7 @@ object AddFriendFrame: TAddFriendFrame
       Width = 770
       Height = 113
       Caption = #55357#56510' Save'
-      TabOrder = 5
+      TabOrder = 4
       OnClick = Button4Click
     end
     object Memo5: TMemo
@@ -427,7 +422,7 @@ object AddFriendFrame: TAddFriendFrame
       Top = 440
       Width = 539
       Height = 63
-      TabOrder = 6
+      TabOrder = 5
     end
   end
   object PopupMenuFavMov: TPopupMenu
