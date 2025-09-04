@@ -29,7 +29,6 @@ type
     GroupBox1: TGroupBox;
     LabelNicknames: TLabel;
     GroupBox2: TGroupBox;
-    LabelDescription: TLabel;
     GroupBox3: TGroupBox;
     LabelAddress: TLabel;
     GroupBox4: TGroupBox;
@@ -46,6 +45,7 @@ type
     MemoHobbies: TMemo;
     MemoVolunteerActivities: TMemo;
     MemoFunFact: TMemo;
+    MemoDescription: TMemo;
   private
     FMoviePosterImages: TImageList;
     FSeriesPosterImages: TImageList;
@@ -202,7 +202,7 @@ begin
   with ListView1.Columns.Add do
   begin
     Caption := 'Title';
-    Width := 150;
+    Width := 80;
   end;
   with ListView1.Columns.Add do
   begin
@@ -232,7 +232,7 @@ begin
   with ListView2.Columns.Add do
   begin
     Caption := 'Title';
-    Width := 150;
+    Width := 80;
   end;
   with ListView2.Columns.Add do
   begin
@@ -280,9 +280,9 @@ begin
 
   // Description
   if Person.SomethingElse <> '' then
-    LabelDescription.Caption := Person.SomethingElse
+    MemoDescription.Text := Person.SomethingElse
   else
-    LabelDescription.Caption := 'No description';
+    MemoDescription.Text := 'No description';
 
   // Address
   AddressText := '';

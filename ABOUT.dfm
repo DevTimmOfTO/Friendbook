@@ -86,9 +86,9 @@ object AboutBox: TAboutBox
     object Label2: TLabel
       Left = 168
       Top = 40
-      Width = 33
+      Width = 15
       Height = 13
-      Caption = 'v01.02'
+      Caption = '1.2'
     end
     object Label3: TLabel
       Left = 168

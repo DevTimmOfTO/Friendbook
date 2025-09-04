@@ -11,7 +11,6 @@ object AddFriendFrame: TAddFriendFrame
     Width = 818
     Height = 629
     HorzScrollBar.Range = 794
-    VertScrollBar.Position = 875
     VertScrollBar.Range = 1500
     VertScrollBar.Smooth = True
     VertScrollBar.Style = ssFlat
@@ -19,18 +18,16 @@ object AddFriendFrame: TAddFriendFrame
     AutoScroll = False
     PopupMenu = PopupMenuFavMov
     TabOrder = 0
-    ExplicitLeft = 3
-    ExplicitTop = 3
     object Label18: TLabel
       Left = 36
-      Top = 443
+      Top = 1318
       Width = 83
       Height = 15
       Caption = 'something else:'
     end
     object GroupBox1: TGroupBox
       Left = 432
-      Top = -851
+      Top = 24
       Width = 362
       Height = 415
       Caption = 'picture'
@@ -59,7 +56,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object GroupBox2: TGroupBox
       Left = 24
-      Top = -430
+      Top = 445
       Width = 770
       Height = 852
       Caption = 'interests'
@@ -162,7 +159,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object GroupBox3: TGroupBox
       Left = 24
-      Top = -577
+      Top = 298
       Width = 402
       Height = 141
       Caption = 'adress'
@@ -240,7 +237,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object GroupBox4: TGroupBox
       Left = 24
-      Top = -851
+      Top = 24
       Width = 402
       Height = 268
       Caption = 'personal information'
@@ -410,7 +407,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object Button4: TButton
       Left = 24
-      Top = 509
+      Top = 1384
       Width = 770
       Height = 113
       Caption = #55357#56510' Save'
@@ -419,7 +416,7 @@ object AddFriendFrame: TAddFriendFrame
     end
     object Memo5: TMemo
       Left = 126
-      Top = 440
+      Top = 1315
       Width = 539
       Height = 63
       TabOrder = 5

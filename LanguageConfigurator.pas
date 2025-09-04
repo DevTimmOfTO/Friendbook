@@ -1,4 +1,6 @@
-﻿unit LanguageConfigurator;
+﻿//does not work, to complex in the late game
+
+unit LanguageConfigurator;
 
 interface
 

@@ -10,14 +10,13 @@ object FrameView: TFrameView
     Width = 800
     Height = 600
     HorzScrollBar.Range = 776
-    VertScrollBar.Position = 18
-    VertScrollBar.Range = 1500
+    VertScrollBar.Range = 985
     Align = alClient
     AutoScroll = False
     TabOrder = 0
     object Panel1: TPanel
       Left = 0
-      Top = -18
+      Top = 0
       Width = 779
       Height = 200
       Align = alTop
@@ -89,23 +88,23 @@ object FrameView: TFrameView
     end
     object GroupBox2: TGroupBox
       Left = 16
-      Top = 202
+      Top = 220
       Width = 760
       Height = 80
       Caption = 'description'
       TabOrder = 1
-      object LabelDescription: TLabel
-        Left = 8
-        Top = 20
-        Width = 88
-        Height = 15
-        Caption = 'LabelDescription'
-        WordWrap = True
+      object MemoDescription: TMemo
+        Left = 3
+        Top = 16
+        Width = 754
+        Height = 61
+        ReadOnly = True
+        TabOrder = 0
       end
     end
     object GroupBox3: TGroupBox
       Left = 16
-      Top = 302
+      Top = 320
       Width = 360
       Height = 162
       Caption = 'adress'
@@ -121,7 +120,7 @@ object FrameView: TFrameView
     end
     object GroupBox6: TGroupBox
       Left = 400
-      Top = 302
+      Top = 320
       Width = 376
       Height = 162
       Caption = 'personal information'
@@ -129,7 +128,7 @@ object FrameView: TFrameView
       object LabelPersonalInfo: TLabel
         Left = 8
         Top = 20
-        Width = 345
+        Width = 94
         Height = 15
         Caption = 'LabelPersonalInfo'
         WordWrap = True
@@ -137,7 +136,7 @@ object FrameView: TFrameView
     end
     object GroupBox4: TGroupBox
       Left = 16
-      Top = 482
+      Top = 500
       Width = 360
       Height = 281
       Caption = 'favorite movie'
@@ -156,7 +155,7 @@ object FrameView: TFrameView
     end
     object GroupBox5: TGroupBox
       Left = 400
-      Top = 482
+      Top = 500
       Width = 376
       Height = 281
       Caption = 'favorite tv-shows'
@@ -175,7 +174,7 @@ object FrameView: TFrameView
     end
     object GroupBox7: TGroupBox
       Left = 16
-      Top = 778
+      Top = 796
       Width = 240
       Height = 164
       Caption = 'hobbies'
@@ -185,12 +184,13 @@ object FrameView: TFrameView
         Top = 16
         Width = 234
         Height = 145
+        ReadOnly = True
         TabOrder = 0
       end
     end
     object GroupBox8: TGroupBox
       Left = 280
-      Top = 778
+      Top = 796
       Width = 240
       Height = 164
       Caption = 'volunteer activities'
@@ -202,12 +202,13 @@ object FrameView: TFrameView
         Height = 145
         Lines.Strings = (
           '')
+        ReadOnly = True
         TabOrder = 0
       end
     end
     object GroupBox9: TGroupBox
       Left = 544
-      Top = 778
+      Top = 796
       Width = 232
       Height = 164
       Caption = 'fun fact'
@@ -217,6 +218,7 @@ object FrameView: TFrameView
         Top = 16
         Width = 226
         Height = 145
+        ReadOnly = True
         TabOrder = 0
       end
     end

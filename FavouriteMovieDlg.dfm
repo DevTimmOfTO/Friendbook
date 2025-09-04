@@ -13,9 +13,9 @@ object FavoriteMovieDlg: TFavoriteMovieDlg
   object Label1: TLabel
     Left = 32
     Top = 12
-    Width = 56
+    Width = 59
     Height = 15
-    Caption = 'movie title'
+    Caption = 'movie title:'
   end
   object Label2: TLabel
     Left = 32

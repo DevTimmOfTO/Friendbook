@@ -1,6 +1,8 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'friendship book'
   ClientHeight = 648
   ClientWidth = 971
@@ -40,7 +42,7 @@ object Form1: TForm1
     end
     object SearchBox1: TSearchBox
       Left = 10
-      Top = 327
+      Top = 127
       Width = 137
       Height = 23
       TabOrder = 2
@@ -89,6 +91,7 @@ object Form1: TForm1
       end
       object SpeichernunterdesBuches1: TMenuItem
         Caption = 'Save as a friendship book'
+        ShortCut = 24659
         OnClick = DateiSpeichernUnter1Click
       end
       object N2: TMenuItem
