@@ -13,7 +13,9 @@ A modern digital friendship book application built with Pascal/Delphi for collec
 ### 🎬 Entertainment Tracking
 - Favorite movies collection with posters and descriptions
 - TV series preferences with detailed information
-- TMDB-style data structure support
+- TMDB-style data structure support*
+
+*Require Internet Connection
 
 ### 💾 Data Storage
 - Optimized JSON serialization (~40% size reduction)
