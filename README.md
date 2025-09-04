@@ -1,4 +1,4 @@
-# Freundschaftsbuch 📖✨
+# Friendbook 📖✨
 
 A modern digital friendship book application built with Pascal/Delphi for collecting and managing friends' profiles with photos, personal information, and entertainment preferences.
 
